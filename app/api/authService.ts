@@ -1,5 +1,3 @@
-import { AxiosResponse } from 'axios'
-
 import { IUpdateUser, IUser } from './../types/models/IUser'
 // import { ISignInCredentials, ISignUpCredentials } from '@/types/models'
 // import { IUser } from './../types/models/index'
@@ -18,6 +16,14 @@ export default class authService {
 
   static updateUserInfo = (userInfo: IUpdateUser) =>
     instance.patch<IUser>('/user', userInfo)
+
+  static checkToken = (token: string) =>
+    instance.post<boolean>('/auth/checkToken', token)
+
+  static restorePassword = (restorePasswordData: {
+    token: string
+    password: string
+  }) => instance.post('/auth/restorePassword', restorePasswordData)
 
   static changeAvatar = (avatar: FormData) =>
     instance.patch<IUser>('/user/changeAvatar', avatar)

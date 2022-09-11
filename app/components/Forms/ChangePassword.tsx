@@ -1,5 +1,7 @@
 import { Button } from '@chakra-ui/react'
+import authService from 'api/authService'
 import { Field, FieldProps, Form, Formik } from 'formik'
+import { useRouter } from 'next/router'
 import { FC } from 'react'
 
 import { useTypedSelector } from '@/hooks/useTypedSelector'
@@ -7,7 +9,6 @@ import { useTypedSelector } from '@/hooks/useTypedSelector'
 import BaseForm from './BaseForm'
 import FormField from './FormField'
 import { changePasswordShema } from '@/common/validationSchema'
-import { useDispatch } from 'react-redux'
 
 interface ChangePasswordProps {}
 
@@ -22,18 +23,16 @@ const initialValues = {
 }
 
 const ChangePassword: FC<ChangePasswordProps> = () => {
-  const { isAuth, isLoading } = useTypedSelector((store) => store.auth)
-  const dispatch = useDispatch()
+  const { isLoading } = useTypedSelector((store) => store.auth)
+  const router = useRouter()
 
-  const hanldeSubmit = (formValues: FormValues) => {
-    const credentials = {
+  const hanldeSubmit = async (formValues: FormValues) => {
+    const changePasswordData = {
+      token: router.query.token as string,
       password: formValues.password
     }
-
-    console.log(formValues);
-    console.log(credentials);
-
-    
+    await authService.restorePassword(changePasswordData)
+    router.push({ pathname: '/sign-in' })
   }
   return (
     <BaseForm title='Change password'>
@@ -82,4 +81,5 @@ const ChangePassword: FC<ChangePasswordProps> = () => {
     </BaseForm>
   )
 }
+
 export default ChangePassword
