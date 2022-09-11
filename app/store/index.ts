@@ -4,18 +4,30 @@ import {
   combineReducers,
   configureStore
 } from '@reduxjs/toolkit'
-import { HYDRATE, createWrapper } from 'next-redux-wrapper'
+import { createWrapper } from 'next-redux-wrapper'
 
 import authReducer from '@/store/auth'
+import bookReducer from '@/store/books'
+import errorReducer from '@/store/error'
+import recordReducer from '@/store/record'
+import reviewReducer from '@/store/reviews'
+import usersReducer from '@/store/users'
 
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  book: bookReducer,
+  review: reviewReducer,
+  record: recordReducer,
+  users: usersReducer,
+  error: errorReducer
 })
 
 export const makeStore = () =>
   configureStore({
     reducer: rootReducer
   })
+
+export type RootSate = ReturnType<typeof rootReducer>
 
 type Store = ReturnType<typeof makeStore>
 

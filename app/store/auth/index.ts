@@ -1,46 +1,34 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { IUser } from './../../types/models/IUser'
-import { getCurrentUser, signIn, signOut, signUp } from './actionCreators'
+import {
+  changeAvatar,
+  getCurrentUser,
+  getCurrentUserFromServerSide,
+  signIn,
+  signOut,
+  signUp,
+  updateUserInfo
+} from './actionCreators'
 
 interface IInitialState {
   isAuth: boolean | undefined
   isServerAuth: boolean | undefined
   isLoading: boolean
-  currentUser?: IUser
-  getCurrentUserError: string
-  signInError: string
-  signUpError: string
-  signOutError: string
+  currentUser?: IUser | null
 }
 
 const initialState: IInitialState = {
   isAuth: undefined,
   isServerAuth: false,
   isLoading: false,
-  currentUser: undefined,
-  getCurrentUserError: '',
-  signInError: '',
-  signUpError: '',
-  signOutError: ''
+  currentUser: undefined
 }
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    clearSignInError: (state) => {
-      state.signInError = ''
-    },
-    clearSignUpError: (state) => {
-      state.signUpError = ''
-    },
-    clearSignOutError: (state) => {
-      state.signOutError = ''
-    },
-    clearGetCurrentUserError: (state) => {
-      state.getCurrentUserError = ''
-    },
     setAuth: (state, { payload }) => {
       state.isAuth = payload
     },
@@ -62,7 +50,6 @@ export const authSlice = createSlice({
       state.isLoading = false
       state.isAuth = false
       state.currentUser = undefined
-      state.signInError = payload as string
     })
 
     builder.addCase(signUp.pending, (state) => {
@@ -77,7 +64,6 @@ export const authSlice = createSlice({
       state.isLoading = false
       state.isAuth = false
       state.currentUser = undefined
-      state.signUpError = payload as string
     })
 
     builder.addCase(signOut.pending, (state, { payload }) => {
@@ -86,11 +72,10 @@ export const authSlice = createSlice({
     builder.addCase(signOut.fulfilled, (state, { payload }) => {
       state.isLoading = false
       state.isAuth = false
-      state.currentUser = undefined
+      state.currentUser = null
     })
     builder.addCase(signOut.rejected, (state, { payload }) => {
       state.isLoading = false
-      state.signUpError = payload as string
     })
 
     builder.addCase(getCurrentUser.pending, (state) => {
@@ -105,17 +90,51 @@ export const authSlice = createSlice({
       state.isLoading = false
       state.isAuth = false
       state.currentUser = undefined
-      state.getCurrentUserError = payload as string
+    })
+
+    builder.addCase(getCurrentUserFromServerSide.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(
+      getCurrentUserFromServerSide.fulfilled,
+      (state, { payload }) => {
+        state.isLoading = false
+        state.isAuth = true
+        state.currentUser = payload
+      }
+    )
+    builder.addCase(
+      getCurrentUserFromServerSide.rejected,
+      (state, { payload }) => {
+        state.isLoading = false
+        state.isAuth = false
+        state.currentUser = undefined
+      }
+    )
+
+    builder.addCase(updateUserInfo.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(updateUserInfo.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+      state.currentUser = payload
+    })
+    builder.addCase(updateUserInfo.rejected, (state, { payload }) => {
+      state.isLoading = false
+    })
+
+    builder.addCase(changeAvatar.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(changeAvatar.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+      state.currentUser = payload
+    })
+    builder.addCase(changeAvatar.rejected, (state, { payload }) => {
+      state.isLoading = false
     })
   }
 })
 
-export const {
-  clearSignInError,
-  clearSignUpError,
-  clearSignOutError,
-  clearGetCurrentUserError,
-  setAuth,
-  setServerAuth
-} = authSlice.actions
+export const { setAuth, setServerAuth } = authSlice.actions
 export default authSlice.reducer

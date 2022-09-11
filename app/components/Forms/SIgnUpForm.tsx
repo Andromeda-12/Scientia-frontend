@@ -56,8 +56,11 @@ const initialValuesForSecondStep = {
 const SignUpForm: FC = () => {
   const router = useRouter()
   const { signUp } = useActions()
-  const { isLoading, isAuth, signUpError } = useTypedSelector(
+  const { isLoading, isAuth } = useTypedSelector(
     (store) => store.auth
+  )
+  const { isError } = useTypedSelector(
+    (store) => store.error
   )
   const [secondStep, setSecondStep] = useState(false)
   const [formValuesFromFirstStep, setFormValuesFromFirstStep] =
@@ -78,8 +81,8 @@ const SignUpForm: FC = () => {
   }, [isAuth, router])
 
   useEffect(() => {
-    if (signUpError) setSecondStep(false)
-  }, [signUpError])
+    if (isError) setSecondStep(false)
+  }, [isError])
 
   const hanldeSubmitSecondStep = (formValues: FormValuesForSecondStep) => {
     const credentials = {

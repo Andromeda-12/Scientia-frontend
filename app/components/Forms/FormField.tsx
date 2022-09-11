@@ -3,7 +3,8 @@ import {
   FormErrorMessage,
   FormLabel,
   InputGroup,
-  InputLeftAddon
+  InputLeftAddon,
+  Textarea
 } from '@chakra-ui/react'
 import { FC } from 'react'
 
@@ -16,9 +17,11 @@ interface FormFieldProps {
   isInvalid: boolean
   isRequired?: boolean
   field: any
+  title?: string
   tel?: boolean
   password?: boolean
   placeholder?: string
+  textarea?: boolean
 }
 
 interface PlugProps {
@@ -35,38 +38,23 @@ const FormField: FC<FormFieldProps> = ({
   isInvalid,
   isRequired,
   field,
+  title,
   errorMessage,
-  tel,
   password,
-  placeholder
+  placeholder,
+  textarea
 }) => {
   return (
     <FormControl isRequired={isRequired} isInvalid={isInvalid} mb={1}>
-      <FormLabel>{name}</FormLabel>
+      <FormLabel>{title}</FormLabel>
       <InputGroup>
-        {/* {tel &&
-          (isInvalid ? (
-            <InputLeftAddon
-              backgroundColor='gray.200'
-              borderColor='red'
-              border='2px'
-              p={2}
-            >
-              +
-            </InputLeftAddon>
-          ) : (
-            <InputLeftAddon
-              backgroundColor='gray.200'
-              borderRightColor='gray.300'
-              borderRightWidth='2px'
-            >
-              +
-            </InputLeftAddon>
-          ))} */}
-
         {password && <PasswordInput field={field} placeholder={name} />}
 
-        {!password && (
+        {textarea && (
+          <Textarea {...field} placeholder={placeholder} size='sm' minH='150px' />
+        )}
+
+        {!password && !textarea && (
           <Input
             type={InputTypes.text}
             placeholder={placeholder || name}

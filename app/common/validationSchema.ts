@@ -48,3 +48,28 @@ export const changePasswordShema = Yup.object({
     .required('Field is required')
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
 })
+
+export const createBookShema = Yup.object({
+  title: Yup.string().required('Название книги обязательное'),
+  description: Yup.string().required('Описание книги обязательное'),
+  author: Yup.string()
+})
+
+export const reviewShema = Yup.object({
+  text: Yup.string().required('Текст отзыва обязателен')
+})
+
+export const updateUserShema = Yup.object({
+  email: Yup.string().email('Некорректная почта').required('Укажите почту'),
+  firstName: Yup.string().required('Укажите свое имя'),
+  lastName: Yup.string().required('Укажите свою фамилию'),
+  phone: Yup.string()
+    .required('Укажите свой номер телефона')
+    .matches(phoneRegExp, 'Некорректный номер телефона')
+})
+
+export const updateBookShema = Yup.object({
+  title: Yup.string().required('Укажите название книги'),
+  description: Yup.string().required('Укажите описание книги'),
+  author: Yup.string().required('Укажите автора книги')
+})

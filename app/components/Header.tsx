@@ -7,7 +7,6 @@ import {
   Menu,
   MenuButton,
   MenuDivider,
-  MenuIcon,
   MenuItem,
   MenuList,
   Skeleton,
@@ -17,9 +16,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
+import { AiOutlineMenu } from 'react-icons/ai'
 import { useDispatch } from 'react-redux'
 
-import { useActions } from '@/hooks/useActoins'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 
 import { signOut } from '@/store/auth/actionCreators'
@@ -48,7 +47,6 @@ const Header: FC<IHeaderProps> = ({ isServerSideAuth }) => {
   const { isAuth, isServerAuth, currentUser, isLoading } = useTypedSelector(
     (store) => store.auth
   )
-  // const { signOut } = useActions()
   const dispatch = useDispatch()
 
   const handleSignOut = async () => {
@@ -90,8 +88,7 @@ const Header: FC<IHeaderProps> = ({ isServerSideAuth }) => {
         color='primary.main'
         onClick={toggleMenu}
       >
-        <CloseIcon />
-        {/* {show ? <CloseIcon /> : <MenuIcon />} */}
+        {show ? <CloseIcon /> : <AiOutlineMenu size={23} />}
       </Box>
 
       <Box
@@ -104,7 +101,7 @@ const Header: FC<IHeaderProps> = ({ isServerSideAuth }) => {
           direction={['column', 'row', 'row', 'row']}
           pt={[4, 4, 0, 0]}
         >
-          <MenuItems to='/library' color='text.black'>
+          <MenuItems to='/books' color='text.black'>
             Библиотека
           </MenuItems>
 
@@ -140,13 +137,14 @@ const Header: FC<IHeaderProps> = ({ isServerSideAuth }) => {
                   minW={0}
                 >
                   <Flex alignItems='center'>
-                    <Avatar
-                      size={'sm'}
-                      src={
-                        'https://sun4-15.userapi.com/s/v1/ig2/zznmMfQlw3INFacs3AKWBFCHk12P9FSFR_Yrg9GftsyhKPj7sH7Mjwvn-X3n24kuliQ4vH9dN9ZJ908X905ln-Ph.jpg?size=400x400&quality=95&crop=0,0,597,597&ava=1'
-                      }
-                    />
-                    <Box display='inline' ml='10px' >
+                    {currentUser?.avatarUrl && (
+                      <Avatar
+                        size={'sm'}
+                        src={`${process.env.API_URL}/images/${currentUser?.avatarUrl}`}
+                      />
+                    )}
+
+                    <Box display='inline' ml='10px'>
                       {currentUser?.firstName} {currentUser?.lastName}
                     </Box>
                   </Flex>

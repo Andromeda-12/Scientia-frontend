@@ -87,7 +87,7 @@ const SignInForm: FC = () => {
 
             <Flex alignContent='center' justifyContent='space-evenly' mt={2}>
               <Text textAlign='center'>Don&apos;t have an account yet?</Text>
-              <Link href='sign-up'>
+              <Link href='/sign-up'>
                 <Text variant='link'>Sign up</Text>
               </Link>
             </Flex>

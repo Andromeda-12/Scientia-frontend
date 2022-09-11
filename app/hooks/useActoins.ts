@@ -1,13 +1,68 @@
 import { bindActionCreators } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 
-import { getCurrentUser, signIn, signOut, signUp } from './../store/auth/actionCreators'
+import { setCurrentBook } from '@/store/books'
+import { getCurrentReview } from '@/store/reviews'
+import { createReview, getReviews, updateReview } from '@/store/reviews/actions'
+
+import {
+  changeAvatar,
+  getCurrentUser,
+  signIn,
+  signOut,
+  signUp,
+  updateUserInfo
+} from './../store/auth/actionCreators'
+import {
+  createBook,
+  deleteBook,
+  getBook,
+  getBooks,
+  getSearchedBooks,
+  takeBook,
+  updateBookInfo
+} from './../store/books/actions'
+import {
+  approveRecord,
+  getApprovedRecords,
+  getOverduedRecords,
+  getPendingConfirmationRecords,
+  getRecords,
+  getUserRecords,
+  rejectRecord,
+  returnBook
+} from './../store/record/actions'
+import { assignRole, getUsers } from './../store/users/actions'
 
 const allActions = {
   signIn,
   signUp,
   signOut,
-  getCurrentUser
+  getCurrentUser,
+  updateUserInfo,
+  createBook,
+  getBooks,
+  getBook,
+  updateBookInfo,
+  setCurrentBook,
+  takeBook,
+  createReview,
+  updateReview,
+  getReviews,
+  getCurrentReview,
+  getRecords,
+  approveRecord,
+  rejectRecord,
+  getUsers,
+  changeAvatar,
+  assignRole,
+  deleteBook,
+  getUserRecords,
+  getApprovedRecords,
+  getPendingConfirmationRecords,
+  getOverduedRecords,
+  returnBook,
+  getSearchedBooks
 }
 
 export const useActions = () => {

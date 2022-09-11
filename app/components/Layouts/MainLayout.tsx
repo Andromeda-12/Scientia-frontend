@@ -13,8 +13,8 @@ const MainLayout: FC<LayoutProps> = ({ children, isServerSideAuth }) => {
     <>
       <Header isServerSideAuth={isServerSideAuth} />
 
-      <Box as='main' bg='primary.main' color='text.main'>
-        <Container bg='primary.main' maxW='90%' minH='80vh'>
+      <Box as='main' color='text.black' bg='gray.200' py={7}>
+        <Container  maxW='98%' minH='80vh'>
           {children}
         </Container>
       </Box>

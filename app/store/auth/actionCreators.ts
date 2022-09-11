@@ -1,6 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import authService from 'api/authService'
 
+import { IUpdateUser } from '@/types/models/IUser'
+
+import { ResponseError, setError } from '../error'
+
 interface ICredentials {
   email: string
   password: string
@@ -22,6 +26,11 @@ export const signIn = createAsyncThunk(
       return data
     } catch (error: any) {
       const message = error.response.data.message
+      const responseError: ResponseError = {
+        message,
+        title: 'Signin error'
+      }
+      dispatch(setError(responseError))
       return rejectWithValue(message)
     }
   }
@@ -29,12 +38,17 @@ export const signIn = createAsyncThunk(
 
 export const signUp = createAsyncThunk(
   'auth/signUp',
-  async (credentials: ISignUpCredentials, { rejectWithValue }) => {
+  async (credentials: ISignUpCredentials, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await authService.signUp(credentials)
       return data
     } catch (error: any) {
       const message = error.response.data.message
+      const responseError: ResponseError = {
+        message,
+        title: 'Signup error'
+      }
+      dispatch(setError(responseError))
       return rejectWithValue(message)
     }
   }
@@ -42,12 +56,16 @@ export const signUp = createAsyncThunk(
 
 export const signOut = createAsyncThunk(
   'auth/signOut',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
       await authService.signOut()
-      localStorage.removeItem('isAuth')
     } catch (error: any) {
       const message = error.response.data.message
+      const responseError: ResponseError = {
+        message,
+        title: 'Signin error'
+      }
+      dispatch(setError(responseError))
       return rejectWithValue(message)
     }
   }
@@ -55,12 +73,71 @@ export const signOut = createAsyncThunk(
 
 export const getCurrentUser = createAsyncThunk(
   'auth/getCurrentUser',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await authService.getCurrentUser()
       return data
     } catch (error: any) {
       const message = error.response.data.message
+      const responseError: ResponseError = {
+        message,
+        title: 'Auth error'
+      }
+      dispatch(setError(responseError))
+      return rejectWithValue(message)
+    }
+  }
+)
+
+export const getCurrentUserFromServerSide = createAsyncThunk(
+  'auth/getCurrentUserFromServerSide',
+  async (cookie, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await authService.getCurrentUserWithCookie(cookie)
+      return data
+    } catch (error: any) {
+      const message = error.response.data.message
+      const responseError: ResponseError = {
+        message,
+        title: 'Signin error'
+      }
+      dispatch(setError(responseError))
+      return rejectWithValue(message)
+    }
+  }
+)
+
+export const updateUserInfo = createAsyncThunk(
+  'auth/updateUserInfo',
+  async (userInfo: IUpdateUser, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await authService.updateUserInfo(userInfo)
+      return data
+    } catch (error: any) {
+      const message = error.response.data.message
+      const responseError: ResponseError = {
+        message,
+        title: 'Update info error'
+      }
+      dispatch(setError(responseError))
+      return rejectWithValue(message)
+    }
+  }
+)
+
+export const changeAvatar = createAsyncThunk(
+  'auth/changeAvatar',
+  async (avatar: FormData, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await authService.changeAvatar(avatar)
+      return data
+    } catch (error: any) {
+      const message = error.response.data.message
+      const responseError: ResponseError = {
+        message,
+        title: 'Signin error'
+      }
+      dispatch(setError(responseError))
       return rejectWithValue(message)
     }
   }

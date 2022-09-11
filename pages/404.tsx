@@ -12,5 +12,6 @@ const NotFoundPage: Page = () => {
 }
 
 NotFoundPage.Layout = CenterLayout
+NotFoundPage.isNotFoundPage = true
 
 export default NotFoundPage
