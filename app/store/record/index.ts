@@ -140,10 +140,15 @@ export const recordSlice = createSlice({
     })
     builder.addCase(returnBook.fulfilled, (state, { payload }) => {
       state.isLoading = false
-      const foundIndex = state.records.findIndex(
+      const foundIndex = state.approvedRecords.findIndex(
         (record) => record.id === payload.id
       )
       state.approvedRecords.splice(foundIndex, 1)
+
+      const foundIndex2 = state.overduedRecords.findIndex(
+        (record) => record.id === payload.id
+      )
+      state.overduedRecords.splice(foundIndex2, 1)
     })
     builder.addCase(returnBook.rejected, (state, { payload }) => {
       state.isLoading = false
