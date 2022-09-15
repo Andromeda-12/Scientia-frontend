@@ -13,7 +13,7 @@ const AdminPage: Page = () => {
 AdminPage.Layout = AdminLayout
 AdminPage.requiredAdminRole = true
 
-export const getServerSideProps = withCheckServerSideAuth(() => {
+export const getServerSideProps = withCheckServerSideAuth(async () => {
   return {
     redirect: { destination: '/admin/records', permanent: true }
   }

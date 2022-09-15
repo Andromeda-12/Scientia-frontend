@@ -1,8 +1,15 @@
-import { IReviewUpdateRequest } from './../../types/models/IReview';
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import reviewService from 'api/reviewService'
 
 import { IReviewRequest } from '@/types/models/IReview'
+
+import {
+  NotificationData,
+  NotificationType,
+  setNotification
+} from '../notification'
+
+import { IReviewUpdateRequest } from './../../types/models/IReview'
 
 export const getReviews = createAsyncThunk(
   'review/getReviews',
@@ -38,6 +45,24 @@ export const updateReview = createAsyncThunk(
       return data
     } catch (error: any) {
       const message = error.response.data.message
+      return rejectWithValue(message)
+    }
+  }
+)
+
+export const deleteReview = createAsyncThunk(
+  'review/deleteReview',
+  async (reviewId: number, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await reviewService.deleteReview(reviewId)
+      return data
+    } catch (error: any) {
+      const message = error.response.data.message
+      const notificationData: NotificationData = {
+        message,
+        type: NotificationType.Error
+      }
+      dispatch(setNotification(notificationData))
       return rejectWithValue(message)
     }
   }

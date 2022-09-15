@@ -1,7 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import recordService from 'api/recordService'
 
-import { ResponseError, setError } from '../error'
+import {
+  NotificationData,
+  NotificationType,
+  setNotification
+} from '../notification'
 
 export const getRecords = createAsyncThunk(
   'record/getRecords',
@@ -76,11 +80,11 @@ export const approveRecord = createAsyncThunk(
       return data
     } catch (error: any) {
       const message = error.response.data.message
-      const responseError: ResponseError = {
+      const notificationData: NotificationData = {
         message,
-        title: 'approveRecord error'
+        type: NotificationType.Error
       }
-      dispatch(setError(responseError))
+      dispatch(setNotification(notificationData))
       return rejectWithValue(message)
     }
   }
@@ -94,11 +98,11 @@ export const returnBook = createAsyncThunk(
       return data
     } catch (error: any) {
       const message = error.response.data.message
-      const responseError: ResponseError = {
+      const notificationData: NotificationData = {
         message,
-        title: 'returnBook error'
+        type: NotificationType.Error
       }
-      dispatch(setError(responseError))
+      dispatch(setNotification(notificationData))
       return rejectWithValue(message)
     }
   }

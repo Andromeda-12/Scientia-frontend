@@ -8,6 +8,7 @@ export interface IRecord {
   book: IBook
   isIssued: boolean
   isReturned: boolean
+  isOverdue: boolean
   factReturningDate: string
   recievingDate: string
   returningDate: string

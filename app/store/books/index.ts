@@ -11,7 +11,6 @@ import {
   getSearchedBooks,
   takeBook,
   updateBookInfo,
-  uploadBookСover
 } from './actions'
 
 interface IInitialState {
@@ -67,11 +66,7 @@ export const bookSlice = createSlice({
     })
     builder.addCase(createBook.fulfilled, (state, { payload }) => {
       state.isLoading = false
-      // const updatedBooks = state.books.map((book) => ({ ...book }))
       state.books.push(payload)
-      console.log(state.books.map((book) => ({ ...book })))
-
-      // state.books = updatedBooks
     })
     builder.addCase(createBook.rejected, (state, { payload }) => {
       state.isLoading = false
@@ -89,6 +84,10 @@ export const bookSlice = createSlice({
       state.error = payload as string
     })
 
+    builder.addCase(takeBook.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+      state.currentBook = payload.book
+    })
     builder.addCase(takeBook.rejected, (state, { payload }) => {
       state.isLoading = false
       state.error = payload as string
@@ -102,18 +101,6 @@ export const bookSlice = createSlice({
       state.currentBook = payload
     })
     builder.addCase(updateBookInfo.rejected, (state, { payload }) => {
-      state.isLoading = false
-      state.error = payload as string
-    })
-
-    builder.addCase(uploadBookСover.pending, (state) => {
-      state.isLoading = true
-    })
-    builder.addCase(uploadBookСover.fulfilled, (state, { payload }) => {
-      state.isLoading = false
-      state.currentBook = payload
-    })
-    builder.addCase(uploadBookСover.rejected, (state, { payload }) => {
       state.isLoading = false
       state.error = payload as string
     })

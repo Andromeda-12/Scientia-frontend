@@ -16,7 +16,7 @@ const RoleManagement: Page = () => {
 }
 
 RoleManagement.Layout = AdminLayout
-RoleManagement.requiredAdminRole = true
+RoleManagement.requiredSuperAdminRole = true
 
 export const getServerSideProps = withCheckServerSideAuth()
 

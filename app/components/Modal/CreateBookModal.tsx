@@ -24,6 +24,7 @@ import FormField from '../Forms/FormField'
 import ImageUpload from '../Forms/ImageUpload'
 
 import { createBookShema } from '@/common/validationSchema'
+import { ICreateBookData } from '@/types/models/IBook'
 
 interface CreateBookModalProps {
   onClose: () => void
@@ -46,17 +47,23 @@ const CreateBookModal: FC<CreateBookModalProps> = ({ isOpen, onClose }) => {
 
   const handleImageInput = (image) => {
     setImage(image)
-    console.log(image)
   }
 
-  const handleSubmit = (data: typeof initialValues) => {
-    data.count = count
-    createBook(data)
+  const handleSubmit = (book: typeof initialValues) => {
+    book.count = count
+
+    const createBookData: ICreateBookData = {
+      book,
+      cover: undefined
+    }
 
     if (image) {
       const bookCover = new FormData()
       bookCover.append('cover', image)
+      createBookData.cover = bookCover
     }
+
+    createBook(createBookData)
     onClose()
   }
 

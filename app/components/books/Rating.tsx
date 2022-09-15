@@ -16,10 +16,6 @@ const Rating: FC<RatingProps> = ({ rating, numReviews }) => {
             {rating}
             <BsStarFill style={{ marginLeft: '5' }} color={'gray.300'} />
           </Box>
-
-          <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-            {numReviews} отзывов
-          </Box>
         </>
       ) : (
         <Text fontSize='sm'>Нет отзывов</Text>

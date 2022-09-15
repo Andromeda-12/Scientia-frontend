@@ -30,7 +30,7 @@ interface AssignRoleModalProps {
   user: IUser
 }
 
-const roles = [Roles.Reader, Roles.Admin, Roles.SuperAdmin]
+const roles = [Roles.Reader, Roles.Admin]
 
 const RolesList = ({ onClose, user }) => {
   const { assignRole } = useActions()

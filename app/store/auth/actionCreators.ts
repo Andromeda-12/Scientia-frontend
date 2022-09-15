@@ -3,7 +3,11 @@ import authService from 'api/authService'
 
 import { IUpdateUser } from '@/types/models/IUser'
 
-import { ResponseError, setError } from '../error'
+import {
+  NotificationData,
+  NotificationType,
+  setNotification
+} from '../notification'
 
 interface ICredentials {
   email: string
@@ -26,11 +30,12 @@ export const signIn = createAsyncThunk(
       return data
     } catch (error: any) {
       const message = error.response.data.message
-      const responseError: ResponseError = {
+      const notificationData: NotificationData = {
         message,
-        title: 'Signin error'
+        title: 'Ошибка входа',
+        type: NotificationType.Error
       }
-      dispatch(setError(responseError))
+      dispatch(setNotification(notificationData))
       return rejectWithValue(message)
     }
   }
@@ -44,11 +49,12 @@ export const signUp = createAsyncThunk(
       return data
     } catch (error: any) {
       const message = error.response.data.message
-      const responseError: ResponseError = {
+      const notificationData: NotificationData = {
         message,
-        title: 'Signup error'
+        title: 'Ошибка при регистрации',
+        type: NotificationType.Error
       }
-      dispatch(setError(responseError))
+      dispatch(setNotification(notificationData))
       return rejectWithValue(message)
     }
   }
@@ -61,11 +67,12 @@ export const signOut = createAsyncThunk(
       await authService.signOut()
     } catch (error: any) {
       const message = error.response.data.message
-      const responseError: ResponseError = {
+      const notificationData: NotificationData = {
         message,
-        title: 'Signin error'
+        title: 'Ошибка при выходе',
+        type: NotificationType.Error
       }
-      dispatch(setError(responseError))
+      dispatch(setNotification(notificationData))
       return rejectWithValue(message)
     }
   }
@@ -79,11 +86,11 @@ export const getCurrentUser = createAsyncThunk(
       return data
     } catch (error: any) {
       const message = error.response.data.message
-      const responseError: ResponseError = {
+      const notificationData: NotificationData = {
         message,
-        title: 'Auth error'
+        type: NotificationType.Error
       }
-      dispatch(setError(responseError))
+      dispatch(setNotification(notificationData))
       return rejectWithValue(message)
     }
   }
@@ -97,11 +104,11 @@ export const getCurrentUserFromServerSide = createAsyncThunk(
       return data
     } catch (error: any) {
       const message = error.response.data.message
-      const responseError: ResponseError = {
+      const notificationData: NotificationData = {
         message,
-        title: 'Signin error'
+        type: NotificationType.Error
       }
-      dispatch(setError(responseError))
+      dispatch(setNotification(notificationData))
       return rejectWithValue(message)
     }
   }
@@ -115,11 +122,11 @@ export const updateUserInfo = createAsyncThunk(
       return data
     } catch (error: any) {
       const message = error.response.data.message
-      const responseError: ResponseError = {
+      const notificationData: NotificationData = {
         message,
-        title: 'Update info error'
+        type: NotificationType.Error
       }
-      dispatch(setError(responseError))
+      dispatch(setNotification(notificationData))
       return rejectWithValue(message)
     }
   }
@@ -133,11 +140,11 @@ export const changeAvatar = createAsyncThunk(
       return data
     } catch (error: any) {
       const message = error.response.data.message
-      const responseError: ResponseError = {
+      const notificationData: NotificationData = {
         message,
-        title: 'Signin error'
+        type: NotificationType.Error
       }
-      dispatch(setError(responseError))
+      dispatch(setNotification(notificationData))
       return rejectWithValue(message)
     }
   }

@@ -2,6 +2,8 @@ import {
   Box,
   Button,
   Center,
+  Flex,
+  Image,
   Skeleton,
   Stack,
   Text,
@@ -48,45 +50,56 @@ const Profile: Page = () => {
 
           <Button onClick={onOpen}>Редактировать профиль</Button>
 
-          <Box p={6}>
-            <Skeleton isLoaded={currentUser !== undefined}>
-              <Box>
-                <Text color={'gray.500'} display='inline'>
-                  {currentUser?.firstName} {currentUser?.lastName}
-                </Text>
-              </Box>
+          <Flex mt='50px' mb='50px' justifyContent='center'>
+            <Box>
+              <Image
+                h='300px'
+                w='250px'
+                src={`${process.env.API_URL}/images/${currentUser?.avatarUrl}`}
+                alt='Аватарка'
+              />
+            </Box>
 
-              <Box>
-                <Text color={'gray.500'} display='inline'>
-                  Почта: {currentUser?.email}
-                </Text>
-              </Box>
+            <Box p={6}>
+              <Skeleton isLoaded={currentUser !== undefined}>
+                <Box>
+                  <Text color={'gray.500'} display='inline'>
+                    {currentUser?.firstName} {currentUser?.lastName}
+                  </Text>
+                </Box>
 
-              <Box>
-                <Text color={'gray.500'} display='inline'>
-                  {currentUser?.phone}
-                </Text>
-              </Box>
+                <Box>
+                  <Text color={'gray.500'} display='inline'>
+                    Почта: {currentUser?.email}
+                  </Text>
+                </Box>
 
-              <Box>
-                <Text color={'gray.500'} display='inline'>
-                  Порядочность: {currentUser?.decency}
-                </Text>
-              </Box>
+                <Box>
+                  <Text color={'gray.500'} display='inline'>
+                    +{currentUser?.phone}
+                  </Text>
+                </Box>
 
-              <Box>
-                <Text color={'gray.500'} display='inline'>
-                  Прочитано книг: {currentUser?.readedBooks}
-                </Text>
-              </Box>
+                <Box>
+                  <Text color={'gray.500'} display='inline'>
+                    Порядочность: {currentUser?.decency}
+                  </Text>
+                </Box>
 
-              <Box>
-                <Text color={'gray.500'} display='inline'>
-                  Просрочено книг: {currentUser?.overdueBooks}
-                </Text>
-              </Box>
-            </Skeleton>
-          </Box>
+                <Box>
+                  <Text color={'gray.500'} display='inline'>
+                    Прочитано книг: {currentUser?.readedBooks}
+                  </Text>
+                </Box>
+
+                <Box>
+                  <Text color={'gray.500'} display='inline'>
+                    Просрочено книг: {currentUser?.overdueBooks}
+                  </Text>
+                </Box>
+              </Skeleton>
+            </Box>
+          </Flex>
         </Box>
       </Center>
 

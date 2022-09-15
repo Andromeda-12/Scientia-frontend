@@ -6,6 +6,9 @@ export default class reviewService {
   static createReview = (review: IReviewRequest) =>
     instance.post('/review', review)
 
+  static deleteReview = (reviewId: number) =>
+    instance.delete(`/review/${reviewId}`)
+
   static updateReview = (review: IReviewUpdateRequest) =>
     instance.put(`/review/${review.id}`, review)
 

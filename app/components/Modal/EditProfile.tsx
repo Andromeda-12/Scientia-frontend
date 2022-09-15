@@ -44,8 +44,6 @@ const EditProfile: FC<EditProfileProps> = ({ isOpen, onClose }) => {
   }, [currentUser])
 
   const handleSubmit = (formData: IUpdateUser) => {
-    console.log(!_.isEqual(currentUser, formData))
-
     if (!_.isEqual(currentUser, formData)) {
       const data = {
         email: formData.email,

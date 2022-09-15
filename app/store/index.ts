@@ -8,7 +8,7 @@ import { createWrapper } from 'next-redux-wrapper'
 
 import authReducer from '@/store/auth'
 import bookReducer from '@/store/books'
-import errorReducer from '@/store/error'
+import notificationReducer from '@/store/notification'
 import recordReducer from '@/store/record'
 import reviewReducer from '@/store/reviews'
 import usersReducer from '@/store/users'
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   review: reviewReducer,
   record: recordReducer,
   users: usersReducer,
-  error: errorReducer
+  notification: notificationReducer
 })
 
 export const makeStore = () =>

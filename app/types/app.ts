@@ -10,6 +10,7 @@ export type Page<T = {}> = NextPage<T> & {
   Layout?: FC<LayoutProps>
   requiredAuth?: boolean
   requiredAdminRole?: boolean
+  requiredSuperAdminRole?: boolean
   isNotFoundPage?: boolean
 }
 

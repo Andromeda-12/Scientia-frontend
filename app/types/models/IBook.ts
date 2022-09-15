@@ -11,10 +11,16 @@ export interface IBook {
   countReviews: number
 }
 
-export interface IBookRequest {
+export interface ICreateBook {
   title: string
   description: string
+  author: string
   count: number
+}
+
+export interface ICreateBookData {
+  book: ICreateBook
+  cover: FormData | undefined
 }
 
 export interface IUpdateBook {
@@ -23,4 +29,9 @@ export interface IUpdateBook {
   description: string
   author: string
   count: number
+}
+
+export interface IUpdateBookData {
+  book: IUpdateBook
+  cover: FormData | undefined
 }

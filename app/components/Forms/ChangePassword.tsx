@@ -2,7 +2,7 @@ import { Button } from '@chakra-ui/react'
 import authService from 'api/authService'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 
@@ -31,9 +31,15 @@ const ChangePassword: FC<ChangePasswordProps> = () => {
       token: router.query.token as string,
       password: formValues.password
     }
-    await authService.restorePassword(changePasswordData)
-    router.push({ pathname: '/sign-in' })
+
+    try {
+      await authService.restorePassword(changePasswordData)
+      router.push({ pathname: '/sign-in' })
+    } catch (error) {
+      
+    }
   }
+
   return (
     <BaseForm title='Change password'>
       <Formik

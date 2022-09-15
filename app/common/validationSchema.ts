@@ -38,6 +38,12 @@ export const signInShema = Yup.object({
     .max(passwordMaxLength)
 })
 
+export const recoveryPasswordShema = Yup.object({
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Email is required')
+})
+
 export const changePasswordShema = Yup.object({
   password: Yup.string()
     .required('Password is required')
@@ -52,7 +58,7 @@ export const changePasswordShema = Yup.object({
 export const createBookShema = Yup.object({
   title: Yup.string().required('Название книги обязательное'),
   description: Yup.string().required('Описание книги обязательное'),
-  author: Yup.string()
+  author: Yup.string().required('Укажите автора книги')
 })
 
 export const reviewShema = Yup.object({

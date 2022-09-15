@@ -52,8 +52,6 @@ const BookPage: Page = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log('render book')
-
   return (
     <>
       <EditBookModal
@@ -125,13 +123,15 @@ const BookPage: Page = () => {
                   )}
                 </Text>
 
-                <Button
-                  mb='15px'
-                  disabled={currentBook.inStock === 0}
-                  onClick={takeCurrentBook}
-                >
-                  Взять книгу
-                </Button>
+                {currentUser && (
+                  <Button
+                    mb='15px'
+                    disabled={currentBook.inStock === 0}
+                    onClick={takeCurrentBook}
+                  >
+                    Взять книгу
+                  </Button>
+                )}
 
                 <Text fontSize='lg' fontWeight='normal'>
                   {currentBook.description}

@@ -10,9 +10,12 @@ import {
 } from '@chakra-ui/react'
 import { FC, useEffect, useState } from 'react'
 import { FiTrash2, FiUser } from 'react-icons/fi'
+import { useDispatch } from 'react-redux'
 
 import { useActions } from '@/hooks/useActoins'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
+
+import { getUserRecords } from '@/store/record/actions'
 
 import Table from './Table'
 
@@ -32,10 +35,14 @@ const formatDate = (date: string | null) => {
 const UserBookList: FC<UserBookListProps> = () => {
   const [page, setPage] = useState(1)
   const { userRecords } = useTypedSelector((state) => state.record)
-  const { getUserRecords } = useActions()
+  // const { getUserRecords } = useActions()
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    getUserRecords()
+    const test = async () => {
+      await dispatch(getUserRecords())
+    }
+    test()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -47,14 +54,18 @@ const UserBookList: FC<UserBookListProps> = () => {
     ),
     isReturned: (
       <Flex>
-        {record?.isReturned ? (
+        {record?.isReturned && !record.isOverdue ? (
           <Badge colorScheme='green'>Возвращено</Badge>
+        ) : record?.isReturned && record.isOverdue ? (
+          <Badge colorScheme='red'>Возвращено</Badge>
         ) : !record?.isIssued ? (
           <Badge colorScheme='blue'>На рассмотрении</Badge>
-        ) : record.factReturningDate === null ? (
-          <Badge colorScheme='blackAlpha'>Читает</Badge>
-        ) : (
+        ) : new Date(record.returningDate).getTime() < Date.now() ? (
           <Badge colorScheme='red'>Просрочено</Badge>
+        ) : (
+          record.factReturningDate === null && (
+            <Badge colorScheme='blackAlpha'>Читает</Badge>
+          )
         )}
       </Flex>
     ),

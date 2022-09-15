@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import { setCurrentBook } from '@/store/books'
 import { getCurrentReview } from '@/store/reviews'
-import { createReview, getReviews, updateReview } from '@/store/reviews/actions'
+import { createReview, deleteReview, getReviews, updateReview } from '@/store/reviews/actions'
 
 import {
   changeAvatar,
@@ -33,6 +33,7 @@ import {
   returnBook
 } from './../store/record/actions'
 import { assignRole, getUsers } from './../store/users/actions'
+import { resetNotification, setNotification } from '@/store/notification'
 
 const allActions = {
   signIn,
@@ -62,7 +63,10 @@ const allActions = {
   getPendingConfirmationRecords,
   getOverduedRecords,
   returnBook,
-  getSearchedBooks
+  getSearchedBooks,
+  setNotification,
+  resetNotification,
+  deleteReview,
 }
 
 export const useActions = () => {

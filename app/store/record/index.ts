@@ -109,10 +109,10 @@ export const recordSlice = createSlice({
     })
     builder.addCase(approveRecord.fulfilled, (state, { payload }) => {
       state.isLoading = false
-      const foundIndex = state.records.findIndex(
+      const foundIndex = state.pendingConfirmationRecords.findIndex(
         (record) => record.id === payload.id
       )
-      state.records.splice(foundIndex, 1)
+      state.pendingConfirmationRecords.splice(foundIndex, 1)
       state.approvedRecords.push(payload)
     })
     builder.addCase(approveRecord.rejected, (state, { payload }) => {
@@ -125,10 +125,10 @@ export const recordSlice = createSlice({
     })
     builder.addCase(rejectRecord.fulfilled, (state, { payload }) => {
       state.isLoading = false
-      const foundIndex = state.records.findIndex(
+      const foundIndex = state.pendingConfirmationRecords.findIndex(
         (record) => record.id === payload.id
       )
-      state.records.splice(foundIndex, 1)
+      state.pendingConfirmationRecords.splice(foundIndex, 1)
     })
     builder.addCase(rejectRecord.rejected, (state, { payload }) => {
       state.isLoading = false

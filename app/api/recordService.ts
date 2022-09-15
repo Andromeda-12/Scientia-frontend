@@ -4,13 +4,13 @@ export default class recordService {
   static getRecords = () => instance.get('/record')
 
   static getApprovedRecords = () =>
-    instance.get('/record', { params: { isIssued: true, isReturned: false } })
+    instance.get('/record', { params: { isIssued: true, isReturned: false, isOverdueByDate: false } })
 
   static getPendingConfirmation = () =>
     instance.get('/record', { params: { isIssued: false } })
 
   static getOverduedRecords = () =>
-    instance.get('/record', { params: { isOverdue: true } })
+    instance.get('/record', { params: { isOverdueByDate: true, isReturned: false } })
 
   static getReturnedRecords = () =>
     instance.get('/record', { params: { isReturned: true } })

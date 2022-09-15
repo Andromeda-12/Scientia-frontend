@@ -23,6 +23,7 @@ import {
   signUpShemaForFirstStep,
   signUpShemaForSecondStep
 } from '@/common/validationSchema'
+import { NotificationType } from '@/store/notification'
 
 interface FormValuesFromFirstStep {
   email: string
@@ -59,8 +60,8 @@ const SignUpForm: FC = () => {
   const { isLoading, isAuth } = useTypedSelector(
     (store) => store.auth
   )
-  const { isError } = useTypedSelector(
-    (store) => store.error
+  const { isNotification, type } = useTypedSelector(
+    (store) => store.notification
   )
   const [secondStep, setSecondStep] = useState(false)
   const [formValuesFromFirstStep, setFormValuesFromFirstStep] =
@@ -81,8 +82,8 @@ const SignUpForm: FC = () => {
   }, [isAuth, router])
 
   useEffect(() => {
-    if (isError) setSecondStep(false)
-  }, [isError])
+    if (isNotification && type === NotificationType.Error) setSecondStep(false)
+  }, [isNotification, type])
 
   const hanldeSubmitSecondStep = (formValues: FormValuesForSecondStep) => {
     const credentials = {

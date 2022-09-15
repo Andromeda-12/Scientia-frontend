@@ -18,12 +18,15 @@ export default class authService {
     instance.patch<IUser>('/user', userInfo)
 
   static checkToken = (token: string) =>
-    instance.post<boolean>('/auth/checkToken', token)
+    instance.get(`/auth/checkRecoveryToken/${token}`)
 
   static restorePassword = (restorePasswordData: {
     token: string
     password: string
-  }) => instance.post('/auth/restorePassword', restorePasswordData)
+  }) => instance.post('/auth/recovery-password', restorePasswordData)
+
+  static sendPasswordRecoveryEmail = (email: string) =>
+    instance.post('/auth/forget-password', { email })
 
   static changeAvatar = (avatar: FormData) =>
     instance.patch<IUser>('/user/changeAvatar', avatar)

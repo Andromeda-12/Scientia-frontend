@@ -18,7 +18,14 @@ instance.interceptors.response.use(
       originalRequest.url.includes('/auth/refresh')
     ) {
       return Promise.reject(error)
+    } else if (
+      error.response.status === 400 &&
+      originalRequest.url.includes('/auth/refresh')
+    ) {
+      return instance(originalRequest)
     } else if (error.response.status === 401 && !originalRequest._retry) {
+      console.log('AAAAAAAA');
+      
       originalRequest._retry = true
       await authService.refresh()
       return instance(originalRequest)

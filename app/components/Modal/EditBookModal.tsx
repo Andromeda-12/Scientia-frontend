@@ -17,17 +17,18 @@ import {
   Text
 } from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik } from 'formik'
+import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 
-import { IUpdateBook } from '@/types/models/IBook'
+import { IUpdateBook, IUpdateBookData } from '@/types/models/IBook'
 
 import { useActions } from '@/hooks/useActoins'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 
 import FormField from '../Forms/FormField'
+import ImageUpload from '../Forms/ImageUpload'
 
 import { updateBookShema } from '@/common/validationSchema'
-import { useRouter } from 'next/router'
 
 interface EditBookModalProps {
   isOpen: boolean
@@ -37,6 +38,7 @@ interface EditBookModalProps {
 const EditBookModal: FC<EditBookModalProps> = ({ isOpen, onClose }) => {
   const { currentBook } = useTypedSelector((store) => store.book)
   const [count, setCount] = useState<number>(1)
+  const [image, setImage] = useState()
   const router = useRouter()
 
   const { updateBookInfo, deleteBook } = useActions()
@@ -54,11 +56,29 @@ const EditBookModal: FC<EditBookModalProps> = ({ isOpen, onClose }) => {
 
   const handleChangeNumberInput = (value: string) => setCount(+value)
 
+  const handleImageInput = (image) => {
+    setImage(image)
+  }
+
   const handleSubmit = (formData: IUpdateBook) => {
-    const data = { ...formData }
-    data.count = count
-    console.log(data)
-    updateBookInfo(data)
+    const book = { ...formData }
+    book.count = count
+
+    const updateBookData: IUpdateBookData = {
+      book,
+      cover: undefined
+    }
+
+    if (image) {
+      const bookCover = new FormData()
+      bookCover.append('cover', image)
+      updateBookData.cover = bookCover
+    }
+
+    console.log(updateBookData);
+    
+
+    updateBookInfo(updateBookData)
     onClose()
   }
 
@@ -130,7 +150,7 @@ const EditBookModal: FC<EditBookModalProps> = ({ isOpen, onClose }) => {
                   <Text mb={3}>Количество книг</Text>
 
                   <NumberInput
-                    min={1}
+                    min={currentBook.count - currentBook.inStock}
                     value={count}
                     onChange={handleChangeNumberInput}
                   >
@@ -140,6 +160,10 @@ const EditBookModal: FC<EditBookModalProps> = ({ isOpen, onClose }) => {
                       <NumberDecrementStepper />
                     </NumberInputStepper>
                   </NumberInput>
+
+                  <Box mt={5}>
+                    <ImageUpload onInput={handleImageInput} />
+                  </Box>
 
                   <ModalFooter>
                     <Flex w='full' justifyContent='flex-end'>

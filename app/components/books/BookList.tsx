@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Center,
   Flex,
   Grid,
   GridItem,
@@ -9,16 +8,12 @@ import {
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { FC, useEffect, useState } from 'react'
-import { withCheckServerSideAuth } from 'utils/requiredAuth'
 
-import { IBook } from '@/types/models/IBook'
 import { Roles } from '@/types/models/IUser'
 
 import { useActions } from '@/hooks/useActoins'
-import useDebounce from '@/hooks/useDebounce'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 
-import { getBooks } from '@/store/books/actions'
 
 import CreateBookModal from '../Modal/CreateBookModal'
 import SearchBook from '../SearchBook'
@@ -94,6 +89,7 @@ const BookList: FC<BookListProps> = () => {
           alignContent='flex-start'
           gap='15px'
           rowGap='20px'
+          overflowY='auto'
           templateColumns={`repeat(auto-fit, minmax(210px, ${
             books.length >= 6 ? '1fr' : '210px'
           }))`}

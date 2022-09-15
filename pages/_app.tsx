@@ -8,13 +8,13 @@ import { useActions } from '@/hooks/useActoins'
 import { useTypedSelector } from '@/hooks/useTypedSelector'
 
 import MainLayout from '@/components/Layouts/MainLayout'
-import WithErrorToast from '@/components/Layouts/WithErrorToast'
-import RouteGuard from '@/components/RouteGuard'
-import Spiner from '@/components/Spiner'
+import WithNotification from '@/components/Layouts/WithNotification'
 
 import { wrapper } from '@/store'
 
 import { theme } from '@/common/theme'
+import { Roles } from '@/types/models/IUser'
+import Spiner from '@/components/Spiner'
 
 function App({ Component, pageProps }: CustomAppProps) {
   const router = useRouter()
@@ -47,7 +47,12 @@ function App({ Component, pageProps }: CustomAppProps) {
   }, [Component.isNotFoundPage])
 
   useEffect(() => {
-    if (Component.requiredAdminRole && currentUser?.role === 'Reader') {
+    if (Component.requiredAdminRole && currentUser?.role === Roles.Reader) {
+      router.back()
+      return
+    }
+
+    if (Component.requiredSuperAdminRole && currentUser?.role !== Roles.SuperAdmin) {
       router.back()
       return
     }
@@ -55,7 +60,7 @@ function App({ Component, pageProps }: CustomAppProps) {
     if (currentUser) setIsLoadingPage(false)
     if (!currentUser && !pageProps.isAuth) setIsLoadingPage(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Component.requiredAdminRole, currentUser])
+  }, [Component.requiredAdminRole, Component.requiredSuperAdminRole, currentUser])
 
   useEffect(() => {
     if (pageProps.isAuth && !currentUser && currentUser !== null) {
@@ -69,11 +74,11 @@ function App({ Component, pageProps }: CustomAppProps) {
       {/* <RouteGuard isServerSideAuth={pageProps.isAuth}> */}
       {isLoadingPage && <Spiner />}
       <Box display={isLoadingPage ? 'none' : 'block'}>
-        <WithErrorToast>
+        <WithNotification>
           <Layout isServerSideAuth={pageProps.isAuth}>
             <Component {...pageProps} />
           </Layout>
-        </WithErrorToast>
+        </WithNotification>
       </Box>
       {/* </RouteGuard> */}
     </ChakraProvider>

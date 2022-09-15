@@ -6,6 +6,7 @@ export interface IReview {
   text: string
   rating: number
   user: IUser
+  datePublication: string
 }
 
 export interface IReviewRequest {
