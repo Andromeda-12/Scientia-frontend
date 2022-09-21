@@ -33,8 +33,6 @@ const EditProfile: FC<EditProfileProps> = ({ isOpen, onClose }) => {
   const { updateUserInfo, changeAvatar } = useActions()
   const [image, setImage] = useState()
 
-  const oldCurrentUser = _.cloneDeep(currentUser)
-
   const [initialUserInfo, setInitialUserInfo] = useState<IUpdateUser>(
     {} as IUpdateUser
   )

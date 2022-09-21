@@ -61,6 +61,11 @@ export default function LargeWithAppLinksAndSocial() {
       <Container as={Stack} maxW={'6xl'} py={10}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
           <Stack align={'flex-start'}>
+            <ListHeader>Контакты администратора</ListHeader>
+            <Text>88005553535</Text>
+          </Stack>
+
+          <Stack align={'flex-start'}>
             <ListHeader>Company</ListHeader>
             <Link href={'#'}>About Us</Link>
             <Link href={'#'}>Blog</Link>
@@ -81,10 +86,6 @@ export default function LargeWithAppLinksAndSocial() {
             <Link href={'#'}>Privacy Policy</Link>
             <Link href={'#'}>Terms of Service</Link>
             <Link href={'#'}>Law Enforcement</Link>
-          </Stack>
-
-          <Stack align={'flex-start'}>
-            <ListHeader>Install App</ListHeader>
           </Stack>
         </SimpleGrid>
       </Container>

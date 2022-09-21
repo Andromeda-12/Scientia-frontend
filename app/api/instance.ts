@@ -13,6 +13,7 @@ instance.interceptors.response.use(
   (config) => config,
   async (error) => {
     const originalRequest = error.config
+
     if (
       error.response.status === 401 &&
       originalRequest.url.includes('/auth/refresh')
@@ -22,11 +23,11 @@ instance.interceptors.response.use(
       error.response.status === 400 &&
       originalRequest.url.includes('/auth/refresh')
     ) {
-      return instance(originalRequest)
+      if (!originalRequest._retry) return Promise.reject(error)
+      else return instance(originalRequest)
     } else if (error.response.status === 401 && !originalRequest._retry) {
-      console.log('AAAAAAAA');
-      
       originalRequest._retry = true
+
       await authService.refresh()
       return instance(originalRequest)
     }

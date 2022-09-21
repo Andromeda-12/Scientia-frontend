@@ -42,6 +42,8 @@ const UserBookList: FC<UserBookListProps> = () => {
     const test = async () => {
       await dispatch(getUserRecords())
     }
+
+    // setTimeout(() => test(), 1000)
     test()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -114,7 +116,15 @@ const UserBookList: FC<UserBookListProps> = () => {
   ]
 
   return (
-    <Box p='12'>
+    <Box
+      w={'full'}
+      bg='white'
+      color='text.black'
+      boxShadow={'2xl'}
+      rounded={'lg'}
+      p='12'
+      textAlign={'center'}
+    >
       <Heading size='sm' as='h3'>
         История пользователя
       </Heading>

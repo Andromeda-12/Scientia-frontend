@@ -69,7 +69,7 @@ const Table: FC<TableProps> = ({
   }
 
   return (
-    <Box py='6' px='2' w='full' minWidth='700px' overflow='auto'>
+    <Box py='6' px='2' w='full' minWidth='700px'  overflow='auto'>
       <Box
         height='100%'
         {...other}

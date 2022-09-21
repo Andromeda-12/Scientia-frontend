@@ -75,8 +75,7 @@ const EditBookModal: FC<EditBookModalProps> = ({ isOpen, onClose }) => {
       updateBookData.cover = bookCover
     }
 
-    console.log(updateBookData);
-    
+    console.log(updateBookData)
 
     updateBookInfo(updateBookData)
     onClose()
@@ -124,6 +123,7 @@ const EditBookModal: FC<EditBookModalProps> = ({ isOpen, onClose }) => {
                     {({ field, form }: FieldProps) => (
                       <FormField
                         name=''
+                        textarea
                         field={field}
                         isInvalid={
                           (form.errors.description &&

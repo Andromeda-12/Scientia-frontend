@@ -4,55 +4,55 @@ import { passwordMaxLength, passwordMinLength, phoneRegExp } from './constants'
 
 export const signUpShemaForFirstStep = Yup.object({
   email: Yup.string()
-    .email('Invalid email address')
-    .required('Email is required'),
+    .email('Некорректная почта')
+    .required('Введите почту'),
 
   password: Yup.string()
-    .required('Password is required')
+    .required('Введите пароль')
     .min(passwordMinLength)
     .max(passwordMaxLength),
 
   passwordConfirmation: Yup.string()
-    .required('Field is required')
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Поле обязательное')
+    .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
 })
 
 export const signUpShemaForSecondStep = Yup.object({
-  firstName: Yup.string().required('Name is required'),
+  firstName: Yup.string().required('Введите имя'),
 
-  lastName: Yup.string().required('Last name is required'),
+  lastName: Yup.string().required('Введите фамилию'),
 
   phone: Yup.string()
-    .required('Field is required')
-    .matches(phoneRegExp, 'Phone number is not valid')
+    .required('Поле обязательное')
+    .matches(phoneRegExp, 'Некорректный номер телефона')
 })
 
 export const signInShema = Yup.object({
   email: Yup.string()
-    .email('Invalid email address')
-    .required('Email is required'),
+    .email('Некорректная почта')
+    .required('Введите почту'),
 
   password: Yup.string()
-    .required('Password is required')
+    .required('Введите пароль')
     .min(passwordMinLength)
     .max(passwordMaxLength)
 })
 
 export const recoveryPasswordShema = Yup.object({
   email: Yup.string()
-    .email('Invalid email address')
-    .required('Email is required')
+    .email('Некорректная почта')
+    .required('Введите почту')
 })
 
 export const changePasswordShema = Yup.object({
   password: Yup.string()
-    .required('Password is required')
+    .required('Введите пароль')
     .min(passwordMinLength)
     .max(passwordMaxLength),
 
   passwordConfirmation: Yup.string()
-    .required('Field is required')
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Поле обязательное')
+    .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
 })
 
 export const createBookShema = Yup.object({

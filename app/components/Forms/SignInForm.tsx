@@ -106,7 +106,7 @@ const SignInForm: FC = () => {
 
   return (
     <>
-      <BaseForm title='Sign in'>
+      <BaseForm title='Вход'>
         <Formik
           innerRef={formRef}
           initialValues={initialValues}
@@ -131,7 +131,7 @@ const SignInForm: FC = () => {
               <Field name='password'>
                 {({ field, form }: FieldProps) => (
                   <FormField
-                    name='Password'
+                    name='Пароль'
                     password
                     field={field}
                     isInvalid={
@@ -152,18 +152,18 @@ const SignInForm: FC = () => {
                   borderColor='gray'
                   iconColor='black'
                 >
-                  Remember me
+                  Запомнить меня
                 </Checkbox>
 
                 <Box as='a' _hover={{ cursor: 'pointer' }} onClick={showDialog}>
-                  Forgot password?
+                  Забыли пароль?
                 </Box>
               </Flex>
 
-              <Flex alignContent='center' justifyContent='space-evenly' mt={2}>
-                <Text textAlign='center'>Don&apos;t have an account yet?</Text>
+              <Flex alignContent='center' justifyContent='space-evenly' mt={3}>
+                <Text textAlign='center'>Еще нет аккаунта?</Text>
                 <Link href='/sign-up'>
-                  <Text variant='link'>Sign up</Text>
+                  <Text variant='link'>Зарегистрироваться</Text>
                 </Link>
               </Flex>
 

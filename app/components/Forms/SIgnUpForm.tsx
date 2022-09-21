@@ -97,11 +97,11 @@ const SignUpForm: FC = () => {
   const getTabIndex = () => (secondStep ? 1 : 0)
 
   return (
-    <BaseForm title='Sign up'>
+    <BaseForm title='Регистрация'>
       <Tabs isFitted index={getTabIndex()} colorScheme='primary.main'>
         <TabList>
-          <Tab isDisabled={secondStep}>First step</Tab>
-          <Tab isDisabled={!secondStep}>Second step</Tab>
+          <Tab isDisabled={secondStep}>Шаг 1</Tab>
+          <Tab isDisabled={!secondStep}>Шаг 2</Tab>
         </TabList>
 
         <TabPanels>
@@ -129,7 +129,7 @@ const SignUpForm: FC = () => {
                   <Field name='password'>
                     {({ field, form }: FieldProps) => (
                       <FormField
-                        name='Password'
+                        name='Пароль'
                         password
                         field={field}
                         isInvalid={
@@ -144,7 +144,7 @@ const SignUpForm: FC = () => {
                   <Field name='passwordConfirmation'>
                     {({ field, form }: FieldProps) => (
                       <FormField
-                        name='Password confirmation'
+                        name='Повторите пароль'
                         password
                         field={field}
                         isInvalid={
@@ -163,7 +163,7 @@ const SignUpForm: FC = () => {
                     justifyContent='space-evenly'
                     mt={2}
                   >
-                    <Text textAlign='center'>Already have an account?</Text>
+                    <Text textAlign='center'>Уже есть аккаунт?</Text>
                     <Link href='sign-in'>
                       <Text
                         as='a'
@@ -171,7 +171,7 @@ const SignUpForm: FC = () => {
                           cursor: 'pointer'
                         }}
                       >
-                        Sign in
+                        Войти
                       </Text>
                     </Link>
                   </Flex>
@@ -190,7 +190,7 @@ const SignUpForm: FC = () => {
                     }}
                     rightIcon={<ArrowForwardIcon mt='2px' w={6} h={6} />}
                   >
-                    Next
+                    Дальше
                   </Button>
                 </Form>
               )}
@@ -208,7 +208,7 @@ const SignUpForm: FC = () => {
                   <Field name='firstName'>
                     {({ field, form }: FieldProps) => (
                       <FormField
-                        name='First name'
+                        name='Имя'
                         field={field}
                         isInvalid={
                           (form.errors.firstName &&
@@ -222,7 +222,7 @@ const SignUpForm: FC = () => {
                   <Field name='lastName'>
                     {({ field, form }: FieldProps) => (
                       <FormField
-                        name='Last name'
+                        name='Фамилия'
                         field={field}
                         isInvalid={
                           (form.errors.lastName &&
@@ -253,7 +253,7 @@ const SignUpForm: FC = () => {
                     justifyContent='space-evenly'
                     mt={2}
                   >
-                    <Text textAlign='center'>Already have an account?</Text>
+                    <Text textAlign='center'>Уже есть аккаунт?</Text>
                     <Link href='sign-in'>
                       <Text
                         as='a'
@@ -261,7 +261,7 @@ const SignUpForm: FC = () => {
                           cursor: 'pointer'
                         }}
                       >
-                        Sign in
+                        Войти
                       </Text>
                     </Link>
                   </Flex>
@@ -279,7 +279,7 @@ const SignUpForm: FC = () => {
                       bg: 'primary.hover'
                     }}
                   >
-                    Sign up
+                    Зарегистрироваться
                   </Button>
                 </Form>
               )}
